@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  nacos:
+    image: nacos/nacos-server:v2.2.3
+    container_name: nacos
+    ports:
+      # web 界面访问端口
+      - 8848:8848
+      # 程序使用 grpc 连接的端口
+      - 9848:9848
+    environment:
+      - MODE=standalone
+      # 使用 mysql 作为数据库
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=mysql
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_DB_NAME=nacos
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=qwer123456
+      # 设置连接 mysql 的连接参数
+      - MYSQL_DB_PARAM="characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&serverTimezone=Asia/Shanghai"
+      - NACOS_AUTH_ENABLE=true           # 开启登录认证
+      - NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789
+      - NACOS_AUTH_IDENTITY_KEY=serverIdentity
+      - NACOS_AUTH_IDENTITY_VALUE=security
+    volumes:
+      - ./logs:/home/nacos/logs
+    networks:
+      - my-net
+networks:
+  my-net:
+    external: true
