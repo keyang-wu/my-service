@@ -14,8 +14,10 @@ spring:
       datasource:
         ds1:
           nacos:
+            username: nacos
+            password: nacos
             server-addr: 127.0.0.1:8848
-            data-id: ${spring.application.name}
+            data-id: ${spring.application.name}-flow-rules
             groupId: product
             data-type: json
             rule-type: flow
