@@ -1,5 +1,7 @@
 server:
   port: 8081
+logging:
+  config: classpath:logback.xml
 spring:
   application:
     name: product-service
