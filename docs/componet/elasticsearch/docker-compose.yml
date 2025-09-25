@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  elasticsearch:
+    image: elasticsearch:8.19.4
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS= -Xms2g -Xmx2g
+      - ELASTIC_PASSWORD=sa2025
+      - TZ=Asia/Shanghai
+    volumes:
+      - ./config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./data:/usr/share/elasticsearch/data
+      - ./plugins:/usr/share/elasticsearch/plugins
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - my-net
+networks:
+  my-net:
+    external: true
